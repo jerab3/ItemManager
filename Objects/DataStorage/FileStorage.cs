@@ -10,6 +10,11 @@ namespace Objects.DataStorage
             Console.WriteLine("Saving item into local file storage");
         }
 
+        public void EditItem(int itemToEditId, IItem editedItem)
+        {
+            Console.WriteLine("Editing item in file storage");
+        }
+
         public void RemoveItem(int itemId)
         {
             Console.WriteLine("Deleting item from local file storage");
@@ -18,7 +23,7 @@ namespace Objects.DataStorage
         public List<IItem> LoadItems()
         {
             Console.WriteLine("Loading items from local file storage");
-            return null;
+            return new List<IItem>();
         }
     }
 }

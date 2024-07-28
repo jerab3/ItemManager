@@ -10,6 +10,7 @@ namespace Interfaces.DataStorage
     public interface IStorage
     {
         void AddItem(IItem item);
+        void EditItem(int itemToEditId, IItem editedItem);
         void RemoveItem(int itemId);
         List<IItem> LoadItems();
     }

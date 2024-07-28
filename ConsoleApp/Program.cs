@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Interfaces.Items;
 using Interfaces.PurchaseLocations;
 using Interfaces.StorageLocations;
+using Objects.DataStorage;
 using Objects.Items;
 using Objects.PurchaseLocations;
 using Objects.StorageLocations;
@@ -11,6 +12,8 @@ class Program
 {
     static void Main(string[] args)
     {
+        var storage = StorageFactory.GetStorage(StorageType.File);
+
         var items = new List<IItem>();
         bool exit = false;
 
