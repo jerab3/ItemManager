@@ -7,24 +7,63 @@ using System.Threading.Tasks;
 
 namespace Objects.PurchaseLocations
 {
-    public abstract class PurchaseLocation(int id, string storeName) : IPurchaseLocation
+    /// <summary>
+    /// <see cref="PurchaseLocation"/> serves as a template for derived classes. 
+    /// </summary>
+    public abstract class PurchaseLocation : IPurchaseLocation
     {
-        public int Id { get; } = id;
-        public string StoreName { get; set; } = storeName;
+        public int Id { get; }
+        public string StoreName { get; set; }
+
+        protected PurchaseLocation(int id, string storeName) 
+        {
+            if (string.IsNullOrWhiteSpace(storeName))
+                throw new ArgumentException(nameof(storeName), "Cannot be null, empty or contain only white spaces");
+
+            this.Id = id;
+            this.StoreName = storeName;
+        }
     }
-    public class Eshop(int id, string storeName, string webAdress) : PurchaseLocation(id, storeName), IEshop
+    /// <summary>
+    /// <see cref="Eshop"/> represents an e-shop. For example: Amazon.
+    /// </summary>
+    public class Eshop : PurchaseLocation, IEshop
     {
-        public string WebAddress { set; get; } = webAdress;
+        public string WebAddress { set; get; }
+
+        public Eshop(int id, string storeName, string webAddress)
+            :base(id, storeName)
+        {
+            if (string.IsNullOrWhiteSpace(webAddress))
+                throw new ArgumentException(nameof(webAddress), "Cannot be null, empty or contain only white spaces");
+
+            this.WebAddress = webAddress;
+        }
 
         public bool IsWebAddressValid()
         {
             return Uri.IsWellFormedUriString(WebAddress, UriKind.Absolute);
         }
     }
-
-    public class PhysicalStore(int id, string storeName, string adress, string city) : PurchaseLocation(id, storeName), IPhysicalStore
+    /// <summary>
+    /// <see cref="PhysicalStore"/> represents a physical store. For example: Wallmart.
+    /// </summary>
+    public class PhysicalStore : PurchaseLocation, IPhysicalStore
     {
-        public string Address { get; set; } = adress;
-        public string City { get; set; } = city;
+        public string Address { get; set; }
+        public string City { get; set; }
+
+        public PhysicalStore(int id, string storeName, string address, string city)
+            :base (id, storeName)
+        {
+            if (string.IsNullOrWhiteSpace(address))
+                throw new ArgumentException(nameof(address), "Cannot be null, empty or contain only white spaces");
+
+            if (string.IsNullOrWhiteSpace(city))
+                throw new ArgumentException(nameof(city), "Cannot be null, empty or contain only white spaces");
+
+            this.Address = address;
+            this.City = city;
+        }
     }
 }
