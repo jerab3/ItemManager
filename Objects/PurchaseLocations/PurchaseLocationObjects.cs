@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Objects.PutchaseLocations
+namespace Objects.PurchaseLocations
 {
     public abstract class PurchaseLocation(int id, string storeName) : IPurchaseLocation
     {
