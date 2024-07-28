@@ -2,7 +2,6 @@
 using Interfaces.PurchaseLocations;
 using Interfaces.Accessories;
 using Interfaces.StorageLocations;
-using Objects.StorageLocations;
 using Interfaces.ObjectProperties;
 using Objects.ObjectProperties;
 
