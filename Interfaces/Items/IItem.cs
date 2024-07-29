@@ -5,12 +5,12 @@ using Interfaces.Vendor;
 namespace Interfaces.Items
 {
     /// <summary>
-    /// Defines interface for classes that serve as bought items
+    /// Defines interface for classes that serve as bought items.
     /// </summary>
     public interface IItem : IIdentifiable, IUsableStorable
     {
         DateTime PurchaseDate { get; set; }
         decimal Cost { get; set; }
-        List<IAccessory>? Accessories { get; set; }
+        List<IAccessory> Accessories { get; set; }
     }
 }

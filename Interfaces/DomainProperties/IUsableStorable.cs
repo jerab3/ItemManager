@@ -10,9 +10,11 @@ namespace Interfaces.DomainProperties
     public interface IUsableStorable : IStorable
     {
         bool IsBeingUsed { get; }
-        string? UsageDescription { get; set; }
+        string? UsageDescription { get; }
 
         void StartUsing(string usageDescription);
         void StopUsing(IStorageLocation storageLocation);
+
+        void SetUsageDescription(string usageDescription);
     }
 }

@@ -3,7 +3,7 @@
 namespace Interfaces.Location
 {
     /// <summary>
-    /// Defines interface for classes that serve as storage
+    /// Defines interface for classes that serve as storage.
     /// </summary>
     public interface IStorageLocation: IIdentifiable
     {

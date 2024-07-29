@@ -7,7 +7,7 @@ using Interfaces.Vendor;
 namespace Interfaces.DataStorage
 {
     /// <summary>
-    /// Defines an interface for classes that handle data storage
+    /// Defines an interface for classes that handle data storage.
     /// </summary>
     public interface IDataStorage
     {

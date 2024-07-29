@@ -4,7 +4,7 @@ using Interfaces.Items;
 namespace Interfaces.Vendor
 {
     /// <summary>
-    /// Defines interface for classes that serve as vendors
+    /// Defines interface for classes that serve as vendors.
     /// </summary>
     public interface IVendor : IIdentifiable
     {
