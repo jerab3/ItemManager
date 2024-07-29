@@ -1,67 +1,41 @@
 ﻿using Interfaces.Items;
-using Interfaces.PurchaseLocations;
 using Interfaces.Accessories;
-using Interfaces.StorageLocations;
-using Interfaces.ObjectProperties;
-using Objects.ObjectProperties;
+using Domains.ObjectProperties;
+using Interfaces.Location;
+using Interfaces.DomainProperties;
 
 namespace Objects.Items
 {
     /// <summary>
     /// <see cref="Item"/> represents an item bought without warranty.
     /// </summary>
-    public class Item : UsableStoreable, IItem
+    public class Item : UsableStoreableObject, IItem
     {
-        public int Id { get; }
-        public string ItemName { get; set; }
-        public DateTime PurchaseDate { get; }
-        public IPurchaseLocation PurchaseLocation { get; }
-        public decimal Cost { get; }
-        public List<IAccessory>? Accessories { get; }
+        public DateTime PurchaseDate { get; set; }
+        public decimal Cost { get; set; }
+        public List<IAccessory> Accessories { get; set; }
 
         /// <summary>
         /// Initializes a new instance of <see cref="Item"/>  that is currently stored.
         /// </summary>
-        public Item(int id, string name, DateTime purchaseDate, IPurchaseLocation purchaseLocation, decimal cost, List<IAccessory>? accessories, IStorageLocation storageLocation)
-            :base(storageLocation)
+        public Item(int id, string name, DateTime purchaseDate, decimal cost, IStorageLocation storageLocation, List<IAccessory> accessories = null)
+            :base(id, name, storageLocation)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException(nameof(name), "Cannot be null, empty or contain only white spaces");
-            }
-            if (purchaseLocation == null)
-            {
-                throw new ArgumentNullException(nameof(purchaseLocation), "Cannot be null");
-            }
 
-            this.Id = id;
-            this.ItemName = name;
             this.PurchaseDate = purchaseDate;
-            this.PurchaseLocation = purchaseLocation;
             this.Cost = cost;
-            this.Accessories = accessories;
+            this.Accessories = accessories ?? new List<IAccessory>();
         }
         /// <summary>
         /// Initializes a new instance of <see cref="Item"/>  that we are currently using.
         /// </summary>
-        public Item(int id, string name, DateTime purchaseDate, IPurchaseLocation purchaseLocation, decimal cost, List<IAccessory>? accessories, string usageDescription)
-            : base (usageDescription)
+        public Item(int id, string name, DateTime purchaseDate, decimal cost, string usageDescription, List<IAccessory> accessories = null)
+            : base (id, name, usageDescription)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException(nameof(name), "Cannot be null, empty or contain only white spaces");
-            }
-            if (purchaseLocation == null)
-            {
-                throw new ArgumentNullException(nameof(purchaseLocation), "Cannot be null");
-            }
-
-            this.Id = id;
-            this.ItemName = name;
+            
             this.PurchaseDate = purchaseDate;
-            this.PurchaseLocation = purchaseLocation;
             this.Cost = cost;
-            this.Accessories = accessories;
+            this.Accessories = accessories ?? new List<IAccessory>();
         }
     }
 
@@ -71,19 +45,20 @@ namespace Objects.Items
     public class WarrantyItem : Item, IHasWarranty
     {
         public DateTime WarrantyEndDate { get; set; }
+
         /// <summary>
         /// Initializes a new instance of <see cref="WarrantyItem"/>  that is currently stored.
         /// </summary>
-        public WarrantyItem(int id, string name, DateTime purchaseDate, IPurchaseLocation purchaseLocation, decimal cost, List<IAccessory>? accessories, IStorageLocation storageLocation, DateTime warrantyEndTime)
-            :base(id, name, purchaseDate, purchaseLocation, cost, accessories, storageLocation)
+        public WarrantyItem(int id, string name, DateTime purchaseDate, decimal cost, IStorageLocation storageLocation, DateTime warrantyEndTime, List<IAccessory> accessories = null)
+            :base(id, name, purchaseDate, cost, storageLocation, accessories)
         {
             this.WarrantyEndDate = warrantyEndTime;
         }
         /// <summary>
         /// Initializes a new instance of <see cref="WarrantyItem"/>  that we are currently using.
         /// </summary>
-        public WarrantyItem(int id, string name, DateTime purchaseDate, IPurchaseLocation purchaseLocation, decimal cost, List<IAccessory>? accessories, string usageDescription, DateTime warrantyEndTime)
-            : base(id, name, purchaseDate, purchaseLocation, cost, accessories, usageDescription)
+        public WarrantyItem(int id, string name, DateTime purchaseDate, decimal cost, string usageDescription, DateTime warrantyEndTime, List<IAccessory> accessories = null)
+            : base(id, name, purchaseDate, cost, usageDescription, accessories)
         {
             this.WarrantyEndDate = warrantyEndTime;
         }
