@@ -11,6 +11,10 @@ namespace Interfaces.Items
     {
         DateTime PurchaseDate { get; set; }
         decimal Cost { get; set; }
-        List<IAccessory> Accessories { get; set; }
+        IVendor Vendor { get; set; }
+        IEnumerable<IAccessory> Accessories { get; }
+        
+        void AddAccessory(IAccessory accessory);
+        void RemoveAccessory(IAccessory accessory);
     }
 }

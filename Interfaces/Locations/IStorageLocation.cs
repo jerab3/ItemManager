@@ -7,6 +7,9 @@ namespace Interfaces.Location
     /// </summary>
     public interface IStorageLocation: IIdentifiable
     {
-        List<IStorable> StoredObjects { get; set; }
+        IEnumerable<IStorable> StoredObjects { get; }
+
+        void AddStoredObject(IStorable storableObject);
+        void RemoveStoredObject(IStorable storableObject);
     }
 }

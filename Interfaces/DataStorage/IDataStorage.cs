@@ -11,13 +11,14 @@ namespace Interfaces.DataStorage
     /// </summary>
     public interface IDataStorage
     {
-        public List<IVendor> Vendors { get; }
-        public List<IStorageLocation> StorageLocations { get; }
-        public List<IItem> Items { get; }
-        public List<IAccessory> Accessories { get; }
+        IEnumerable<IVendor> Vendors { get; }
+        IEnumerable<IStorageLocation> StorageLocations { get; }
+        IEnumerable<IItem> Items { get; }
+        IEnumerable<IAccessory> Accessories { get; }
 
-        public void LoadData();
-        public void AddData(IIdentifiable identifiableObject);
-        public void RemoveData(int id);
+        void LoadData();
+        void AddData(IIdentifiable identifiableObject);
+        void RemoveData(IIdentifiable identifiableObject);
+        void EditItem(IIdentifiable identifiableObject);
     }
 }

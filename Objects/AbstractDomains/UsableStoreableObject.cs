@@ -9,13 +9,55 @@ namespace Domains.ObjectProperties
     /// be stored in a location and actively used.
     /// It includes properties and methods to manage usage state and storage location.
     /// </summary>
-    public abstract class UsableStoreableObject : IdentifiableObject, IUsableStorable
+    public abstract class UsableStoreableObject : StorableObject, IUsableStorable
     {
         public bool IsBeingUsed { get; private set; }
 
-        public IStorageLocation? StorageLocation { get; private set; }
-        
-        public string? UsageDescription { get; private set; }
+        private IStorageLocation? storageLocation;
+        public override IStorageLocation? StorageLocation 
+        {
+            get 
+            { 
+                return storageLocation; 
+            }
+            set 
+            {
+                if (IsBeingUsed)
+                {
+                    throw new InvalidOperationException($"Cannot set {nameof(StorageLocation)} while {nameof(IsBeingUsed)} is true");
+                }
+                if (value == null) 
+                {
+                    throw new ArgumentNullException(nameof(StorageLocation), "Cannot be null");
+                }
+                storageLocation = value;
+            }
+        }
+        private string? usageDescription;
+        public string? UsageDescription
+        {
+            get
+            {
+                return usageDescription;
+            }
+            set
+            {
+                if (!IsBeingUsed)
+                {
+                    throw new InvalidOperationException($"Cannot set {nameof(UsageDescription)} while {nameof(IsBeingUsed)} is false");
+                }
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(UsageDescription), "Cannot be null");
+                }
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException(nameof(UsageDescription), "Cannot be empty or contain only white spaces");
+                }
+
+                usageDescription = value;
+            }
+        }
 
         /// <summary>
         /// Creates an instance of <see cref="UsableStoreableObject"></see> that is currently stored"
@@ -24,8 +66,11 @@ namespace Domains.ObjectProperties
             :base(id,name)
         {
             this.IsBeingUsed = false;
-            SetStorageLocation(storageLocation);
-            this.UsageDescription = null;
+
+            this.StorageLocation = storageLocation;
+            storageLocation.AddStoredObject(this);
+            
+            this.usageDescription = null;
         }
         /// <summary>
         /// Creates an instance of <see cref="UsableStoreableObject"></see> that is currently being used"
@@ -34,32 +79,10 @@ namespace Domains.ObjectProperties
             :base(id,name)
         {
             this.IsBeingUsed = true;
-            SetUsageDescription(usageDescription);
-            this.StorageLocation = null;
-        }
-        public void SetStorageLocation(IStorageLocation storageLocation)
-        {
-            if (IsBeingUsed)
-            {
-                throw new InvalidOperationException($"Cannot set {nameof(StorageLocation)} while {nameof(IsBeingUsed)} is true");
-            }
-            if (storageLocation == null)
-                throw new ArgumentNullException(nameof(storageLocation), "Cannot be null");
-            this.StorageLocation = storageLocation;
-        }
-        
-        public void SetUsageDescription(string usageDescription)
-        {
-            if (!IsBeingUsed)
-            {
-                throw new InvalidOperationException($"Cannot set {nameof(UsageDescription)} while {nameof(IsBeingUsed)} is false");
-            }
-            if (usageDescription == null)
-                throw new ArgumentNullException(nameof(usageDescription), "Cannot be null");
-            if (string.IsNullOrWhiteSpace(usageDescription))
-                throw new ArgumentException(nameof(usageDescription), "Cannot be empty or contain only white spaces");
-
+            
             this.UsageDescription = usageDescription;
+
+            this.storageLocation = null;
         }
 
         public void StartUsing(string usageDescription)
@@ -67,12 +90,14 @@ namespace Domains.ObjectProperties
             this.IsBeingUsed = true;
             try
             {
-                SetUsageDescription(usageDescription);
-                this.StorageLocation = null;
+                this.UsageDescription = usageDescription;
+                this.StorageLocation.RemoveStoredObject(this);
+                this.storageLocation = null;
             }
             catch (Exception e)
             {
                 this.IsBeingUsed = false;
+                throw;
             }
             
         }
@@ -81,12 +106,14 @@ namespace Domains.ObjectProperties
             this.IsBeingUsed = false;
             try
             {
-                SetStorageLocation(storageLocation);
-                this.UsageDescription = null;
+                this.StorageLocation = storageLocation;
+                this.StorageLocation.AddStoredObject(this);
+                this.usageDescription = null;
             }
             catch (Exception e)
             {
                 this.IsBeingUsed = true;
+                throw;
             }
         }
     }

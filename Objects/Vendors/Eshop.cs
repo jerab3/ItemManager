@@ -9,15 +9,32 @@ namespace Domains.Vendors
     /// </summary>
     public class Eshop : IdentifiableObject, IVendor
     {
-        public List<IItem> PurchasedItems { get; set; }
-        public string WebAddress { set; get; }
+        public IEnumerable<IItem> PurchasedItems { get; private set; }
+        private string webAddress;
+        public string WebAddress
+        {
+            get
+            {
+                return webAddress;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(WebAddress), "Cannot be null.");
+                }
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException(nameof(WebAddress), "Cannot be null, empty or contain only white spaces");
+                }
+
+                webAddress = value;
+            }
+        }
 
         public Eshop(int id, string name, string webAddress, List<IItem> purchasedItems = null)
             :base(id, name)
         {
-            if (string.IsNullOrWhiteSpace(webAddress))
-                throw new ArgumentException(nameof(webAddress), "Cannot be null, empty or contain only white spaces");
-
             this.WebAddress = webAddress;
             this.PurchasedItems = purchasedItems ?? new List<IItem>();
         }
@@ -25,6 +42,28 @@ namespace Domains.Vendors
         public bool IsWebAddressValid()
         {
             return Uri.IsWellFormedUriString(WebAddress, UriKind.Absolute);
+        }
+
+        public void AddPurchasedItem(IItem item)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item), "Cannot be null");
+            }
+            var purchasedItems = this.PurchasedItems.ToList();
+            purchasedItems.Add(item);
+            this.PurchasedItems = purchasedItems;
+        }
+
+        public void RemovePurchasedItem(IItem item)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item), "Cannot be null");
+            }
+            var purchasedItems = this.PurchasedItems.ToList();
+            purchasedItems.Remove(item);
+            this.PurchasedItems = purchasedItems;
         }
     }
 }

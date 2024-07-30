@@ -57,7 +57,7 @@ namespace ItemManager.Tests.Accessories
         }
 
         [Fact]
-        public void SetStorageLocation_ValidArguments_ChangesLocation()
+        public void ChangeStorageLocation_ValidArguments_ChangesLocation()
         {
             //Arrange
             var mockStorageLocation1 = new Mock<IStorageLocation>();
@@ -66,20 +66,20 @@ namespace ItemManager.Tests.Accessories
             var accessory = new StorableAccessory(0, "Test accessory", mockStorageLocation1.Object);
 
             //Act
-            accessory.SetStorageLocation(mockStorageLocation2.Object);
+            accessory.StorageLocation = mockStorageLocation2.Object;
 
             //Assert
             accessory.StorageLocation.Should().Be(mockStorageLocation2.Object);
         }
 
         [Fact]
-        public void SetStorageLocation_NullArgument_RaisesException()
+        public void ChangeStorageLocation_NullArgument_RaisesException()
         {
             //Arrange
             var mockStorageLocation1 = new Mock<IStorageLocation>();
             var accessory = new StorableAccessory(0, "Test accessory", mockStorageLocation1.Object);
-            
-            Action setStorageLocation = () => accessory.SetStorageLocation(null);
+
+            Action setStorageLocation = () => accessory.StorageLocation = null;
 
             //Act & Assert
             setStorageLocation.Should().Throw<ArgumentNullException>();

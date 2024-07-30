@@ -1,6 +1,7 @@
 ﻿using Interfaces.Accessories;
 using Interfaces.Location;
 using Interfaces.DomainProperties;
+using Interfaces.Vendor;
 
 namespace Objects.Items
 {
@@ -15,16 +16,16 @@ namespace Objects.Items
         /// <summary>
         /// Initializes a new instance of <see cref="WarrantyItem"/>  that is currently stored.
         /// </summary>
-        public WarrantyItem(int id, string name, DateTime purchaseDate, decimal cost, IStorageLocation storageLocation, DateTime warrantyEndTime, List<IAccessory> accessories = null)
-            : base(id, name, purchaseDate, cost, storageLocation, accessories)
+        public WarrantyItem(int id, string name, DateTime purchaseDate, decimal cost, IStorageLocation storageLocation, IVendor vendor, DateTime warrantyEndTime, List<IAccessory> accessories = null)
+            : base(id, name, purchaseDate, cost, storageLocation, vendor, accessories)
         {
             this.WarrantyEndDate = warrantyEndTime;
         }
         /// <summary>
         /// Initializes a new instance of <see cref="WarrantyItem"/>  that we are currently using.
         /// </summary>
-        public WarrantyItem(int id, string name, DateTime purchaseDate, decimal cost, string usageDescription, DateTime warrantyEndTime, List<IAccessory> accessories = null)
-            : base(id, name, purchaseDate, cost, usageDescription, accessories)
+        public WarrantyItem(int id, string name, DateTime purchaseDate, decimal cost, string usageDescription, IVendor vendor, DateTime warrantyEndTime, List<IAccessory> accessories = null)
+            : base(id, name, purchaseDate, cost, usageDescription, vendor, accessories)
         {
             this.WarrantyEndDate = warrantyEndTime;
         }
