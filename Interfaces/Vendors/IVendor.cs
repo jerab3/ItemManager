@@ -10,7 +10,7 @@ namespace Interfaces.Vendor
     {
         IEnumerable<IItem> PurchasedItems { get; }
  
-        void AddPurchasedItem();
-        void RemovePurchasedItem();
+        void AddPurchasedItem(IItem item);
+        void RemovePurchasedItem(IItem item);
     }
 }

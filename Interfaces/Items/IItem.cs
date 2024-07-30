@@ -12,7 +12,7 @@ namespace Interfaces.Items
         decimal Cost { get; set; }
         IEnumerable<IAccessory> Accessories { get; }
         
-        void AddAccessory();
-        void RemoveAccessory();
+        void AddAccessory(IAccessory accessory);
+        void RemoveAccessory(IAccessory accessory);
     }
 }

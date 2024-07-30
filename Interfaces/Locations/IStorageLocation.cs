@@ -9,7 +9,7 @@ namespace Interfaces.Location
     {
         IEnumerable<IStorable> StoredObjects { get; }
 
-        void AddStoredObject();
-        void RemoveStoredObject();
+        void AddStoredObject(IStorable storableObject);
+        void RemoveStoredObject(IStorable storableObject);
     }
 }
