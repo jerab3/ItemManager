@@ -19,5 +19,6 @@ namespace Interfaces.DataStorage
         void LoadData();
         void AddData(IIdentifiable identifiableObject);
         void RemoveData(IIdentifiable identifiableObject);
+        void EditItem(IIdentifiable identifiableObject);
     }
 }

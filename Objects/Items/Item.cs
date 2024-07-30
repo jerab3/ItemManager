@@ -2,6 +2,7 @@
 using Interfaces.Accessories;
 using Domains.ObjectProperties;
 using Interfaces.Location;
+using Interfaces.Vendor;
 
 namespace Objects.Items
 {
@@ -12,29 +13,72 @@ namespace Objects.Items
     {
         public DateTime PurchaseDate { get; set; }
         public decimal Cost { get; set; }
-        public List<IAccessory> Accessories { get; set; }
+
+        private IVendor vendor;
+        public IVendor Vendor
+        {
+            get
+            {
+                return vendor;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException(nameof(Vendor), "Cannot be null");
+                }
+                vendor = value;
+            }
+        }
+        public IEnumerable<IAccessory> Accessories { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of <see cref="Item"/>  that is currently stored.
         /// </summary>
-        public Item(int id, string name, DateTime purchaseDate, decimal cost, IStorageLocation storageLocation, List<IAccessory> accessories = null)
+        public Item(int id, string name, DateTime purchaseDate, decimal cost, IStorageLocation storageLocation, IVendor vendor, List<IAccessory> accessories = null)
             :base(id, name, storageLocation)
         {
 
             this.PurchaseDate = purchaseDate;
             this.Cost = cost;
             this.Accessories = accessories ?? new List<IAccessory>();
+            this.Vendor = vendor;
+            vendor.AddPurchasedItem(this);
         }
         /// <summary>
         /// Initializes a new instance of <see cref="Item"/>  that we are currently using.
         /// </summary>
-        public Item(int id, string name, DateTime purchaseDate, decimal cost, string usageDescription, List<IAccessory> accessories = null)
+        public Item(int id, string name, DateTime purchaseDate, decimal cost, string usageDescription, IVendor vendor, List<IAccessory> accessories = null)
             : base (id, name, usageDescription)
         {
             
             this.PurchaseDate = purchaseDate;
             this.Cost = cost;
             this.Accessories = accessories ?? new List<IAccessory>();
+            this.Vendor = vendor;
+            vendor.AddPurchasedItem(this);
+        }
+
+        public void AddAccessory(IAccessory accessory)
+        {
+            if (accessory == null)
+            {
+                throw new ArgumentNullException(nameof(accessory), "Cannot be null");
+            }
+            var accessories = this.Accessories.ToList();
+            accessories.Add(accessory);
+            this.Accessories = accessories;
+        }
+
+        public void RemoveAccessory(IAccessory accessory)
+        {
+            if (accessory == null)
+            {
+                throw new ArgumentNullException(nameof(accessory), "Cannot be null");
+            }
+            var accessories = this.Accessories.ToList();
+            accessories.Remove(accessory);
+            this.Accessories = accessories;
         }
     }
 

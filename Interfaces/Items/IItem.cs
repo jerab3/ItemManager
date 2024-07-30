@@ -1,5 +1,6 @@
 ﻿using Interfaces.Accessories;
 using Interfaces.DomainProperties;
+using Interfaces.Vendor;
 
 namespace Interfaces.Items
 {
@@ -10,6 +11,7 @@ namespace Interfaces.Items
     {
         DateTime PurchaseDate { get; set; }
         decimal Cost { get; set; }
+        IVendor Vendor { get; }
         IEnumerable<IAccessory> Accessories { get; }
         
         void AddAccessory(IAccessory accessory);
