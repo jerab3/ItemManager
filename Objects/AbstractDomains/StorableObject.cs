@@ -38,7 +38,7 @@ namespace Domains.AbstractDomains
         protected StorableObject(int id, string name)
             : base(id, name) 
         {
-            this.StorageLocation = null;
+            this.storageLocation = null;
         }
 
     }

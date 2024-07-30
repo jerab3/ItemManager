@@ -44,7 +44,7 @@ namespace ItemManager.Tests.Vendors
                 store.Name.Should().Be("Alza");
                 store.Address.Should().Be("Vodni 57");
                 store.City.Should().Be("Brno");
-                store.PurchasedItems.Should().BeNull();
+                store.PurchasedItems.Should().BeEmpty();
             }
         }
 
@@ -75,6 +75,64 @@ namespace ItemManager.Tests.Vendors
                 constructor8.Should().Throw<ArgumentException>();
                 constructor9.Should().Throw<ArgumentException>();
             }
+        }
+
+        [Fact]
+        public void AddPurchasedItem_ValidArguments_AddsItem()
+        {
+            //Arrange
+            var mockItem = new Mock<IItem>();
+            var physicalStore = new PhysicalStore(0, "Alza", "Vodni 97", "Brno");
+
+            //Act
+            physicalStore.AddPurchasedItem(mockItem.Object);
+
+            //Assert
+            physicalStore.PurchasedItems.Should().HaveCount(c => c == 1);
+        }
+
+        [Fact]
+        public void RemovePurchasedItem_ValidArguments_AddsItem()
+        {
+            //Arrange
+            var mockItem1 = new Mock<IItem>();
+            var mockItem2 = new Mock<IItem>();
+            List<IItem> items = new List<IItem>() { mockItem1.Object, mockItem2.Object };
+            var physicalStore = new PhysicalStore(0, "Alza", "Vodni 97", "Brno", items);
+
+            //Act
+            physicalStore.RemovePurchasedItem(mockItem1.Object);
+
+            //Assert
+            physicalStore.PurchasedItems.Should().HaveCount(c => c == 1);
+        }
+
+        [Fact]
+        public void AddPurchasedItem_InvalidArguments_RaisesException()
+        {
+            //Arrange
+            var physicalStore = new PhysicalStore(0, "Alza", "Vodni 97", "Brno");
+            Action addPurchasedItem = () => physicalStore.AddPurchasedItem(null);
+
+
+            //Act & Assert
+            addPurchasedItem.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void RemovePurchasedItem_InvalidArguments_RaisesException()
+        {
+            //Arrange
+            var mockItem1 = new Mock<IItem>();
+            var mockItem2 = new Mock<IItem>();
+            List<IItem> items = new List<IItem>() { mockItem1.Object, mockItem2.Object };
+
+            var physicalStore = new PhysicalStore(0, "Alza", "Vodni 97", "Brno");
+
+            Action removePurchasedItem = () => physicalStore.RemovePurchasedItem(null);
+
+            //Act & Assert
+            removePurchasedItem.Should().Throw<ArgumentNullException>();
         }
     }
 }

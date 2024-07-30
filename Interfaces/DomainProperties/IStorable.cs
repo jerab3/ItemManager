@@ -7,6 +7,6 @@ namespace Interfaces.DomainProperties
     /// </summary>
     public interface IStorable
     {
-        IStorageLocation StorageLocation { get; }
+        IStorageLocation StorageLocation { get; set; }
     }
 }

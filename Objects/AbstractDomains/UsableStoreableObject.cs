@@ -70,7 +70,7 @@ namespace Domains.ObjectProperties
             this.StorageLocation = storageLocation;
             storageLocation.AddStoredObject(this);
             
-            this.UsageDescription = null;
+            this.usageDescription = null;
         }
         /// <summary>
         /// Creates an instance of <see cref="UsableStoreableObject"></see> that is currently being used"
@@ -82,7 +82,7 @@ namespace Domains.ObjectProperties
             
             this.UsageDescription = usageDescription;
 
-            this.StorageLocation = null;
+            this.storageLocation = null;
         }
 
         public void StartUsing(string usageDescription)
@@ -92,11 +92,12 @@ namespace Domains.ObjectProperties
             {
                 this.UsageDescription = usageDescription;
                 this.StorageLocation.RemoveStoredObject(this);
-                this.StorageLocation = null;
+                this.storageLocation = null;
             }
             catch (Exception e)
             {
                 this.IsBeingUsed = false;
+                throw;
             }
             
         }
@@ -107,11 +108,12 @@ namespace Domains.ObjectProperties
             {
                 this.StorageLocation = storageLocation;
                 this.StorageLocation.AddStoredObject(this);
-                this.UsageDescription = null;
+                this.usageDescription = null;
             }
             catch (Exception e)
             {
                 this.IsBeingUsed = true;
+                throw;
             }
         }
     }

@@ -94,7 +94,7 @@ namespace ItemManager.Tests.Accessories
         }
 
         [Fact]
-        public void StartUsingAccessory_ValidArguments_SwitchesStateAndValues()
+        public void StartUsing_ValidArguments_SwitchesStateAndValues()
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
@@ -113,7 +113,7 @@ namespace ItemManager.Tests.Accessories
         }
 
         [Fact]
-        public void StartUsingAccessory_InvalidArguments_RaisesException()
+        public void StartUsing_InvalidArguments_RaisesException()
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
@@ -133,7 +133,7 @@ namespace ItemManager.Tests.Accessories
         }
 
         [Fact]
-        public void StopUsingAccessory_ValidArguments_SwitchesStateAndValues()
+        public void StopUsing_ValidArguments_SwitchesStateAndValues()
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
@@ -152,7 +152,7 @@ namespace ItemManager.Tests.Accessories
         }
 
         [Fact]
-        public void StopUsingAccessory_NullArgument_RaisesException()
+        public void StopUsing_NullArgument_RaisesException()
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
@@ -165,7 +165,7 @@ namespace ItemManager.Tests.Accessories
         }
 
         [Fact]
-        public void SetStorageLocation_ValidArguments_ChangesLocation()
+        public void ChangeStorageLocation_ValidArguments_ChangesLocation()
         {
             //Arrange
             var mockStorageLocation1 = new Mock<IStorageLocation>();
@@ -174,52 +174,52 @@ namespace ItemManager.Tests.Accessories
             var accessory = new UsableStoreableAccessory(0, "Test accessory", mockStorageLocation1.Object);
 
             //Act
-            accessory.SetStorageLocation(mockStorageLocation2.Object);
+            accessory.StorageLocation = mockStorageLocation2.Object;
 
             //Assert
             accessory.StorageLocation.Should().Be(mockStorageLocation2.Object);
         }
 
         [Fact]
-        public void SetStorageLocation_NullArgument_RaisesException()
+        public void ChangeStorageLocation_NullArgument_RaisesException()
         {
             //Arrange
             var mockStorageLocation1 = new Mock<IStorageLocation>();
             var accessory = new UsableStoreableAccessory(0, "Test accessory", mockStorageLocation1.Object);
 
-            Action setStorageLocation = () => accessory.SetStorageLocation(null);
+            Action setStorageLocation = () => accessory.StorageLocation = null;
 
             //Act & Assert
             setStorageLocation.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public void SetUsageDescription_ValidArguments_ChangesLocation()
+        public void ChangeUsageDescription_ValidArguments_ChangesLocation()
         {
             //Arrange
             var accessory = new UsableStoreableAccessory(0, "Test accessory", "Plugged in PC");
 
             //Act
-            accessory.SetUsageDescription("Plugged in TV");
+            accessory.UsageDescription = "Plugged in TV";
 
             //Assert
             accessory.UsageDescription.Should().Be("Plugged in TV");
         }
 
         [Fact]
-        public void SetUsageDescription_InvalidArguments_RaisesException()
+        public void ChangeUsageDescription_InvalidArguments_RaisesException()
         {
             //Arrange
             var accessory = new UsableStoreableAccessory(0, "Test accessory", "Plugged in PC");
 
-            Action setUsageDescription1 = () => accessory.SetUsageDescription(null);
-            Action setUsageDescription2 = () => accessory.SetUsageDescription("");
-            Action setUsageDescription3 = () => accessory.SetUsageDescription("    ");
+            Action setUsageDescription1 = () => accessory.StorageLocation = null;
+            Action setUsageDescription2 = () => accessory.UsageDescription = "";
+            Action setUsageDescription3 = () => accessory.UsageDescription = "    ";
 
             //Act & Assert
             using (new AssertionScope())
             {
-                setUsageDescription1.Should().Throw<ArgumentNullException>();
+                setUsageDescription1.Should().Throw<InvalidOperationException>();
                 setUsageDescription2.Should().Throw<ArgumentException>();
                 setUsageDescription3.Should().Throw<ArgumentException>();
             }
