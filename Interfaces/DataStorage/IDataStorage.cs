@@ -18,6 +18,6 @@ namespace Interfaces.DataStorage
 
         public void LoadData();
         public void AddData(IIdentifiable identifiableObject);
-        public void RemoveData(int id);
+        public void RemoveData(IIdentifiable identifiableObject);
     }
 }

@@ -8,6 +8,6 @@ namespace Interfaces.Vendor
     /// </summary>
     public interface IVendor : IIdentifiable
     {
-        List<IItem> PurchasedItems { get; set; }
+        List<IItem> PurchasedItems { get; }
     }
 }

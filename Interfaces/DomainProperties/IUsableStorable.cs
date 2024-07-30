@@ -15,6 +15,5 @@ namespace Interfaces.DomainProperties
         void StartUsing(string usageDescription);
         void StopUsing(IStorageLocation storageLocation);
 
-        void SetUsageDescription(string usageDescription);
     }
 }
