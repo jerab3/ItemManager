@@ -20,6 +20,7 @@
     <ProjectReference Include="..\DatabaseDataHandler\DatabaseDataHanding.csproj" />
     <ProjectReference Include="..\FileDataStorage\FileDataHanding.csproj" />
     <ProjectReference Include="..\Interfaces\Interfaces.csproj" />
+    <ProjectReference Include="..\Objects\Domains.csproj" />
   </ItemGroup>
 
 </Project>

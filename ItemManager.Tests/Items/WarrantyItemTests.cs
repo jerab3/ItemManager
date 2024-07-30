@@ -18,12 +18,11 @@ namespace ItemManager.Tests.Items
             var mockVendor = new Mock<IVendor>();
 
             //Act
-            var item = new WarrantyItem(0, "PC", dateTime, 1.5m, "In the living room", mockVendor.Object,dateTime);
+            var item = new WarrantyItem("PC", dateTime, 1.5m, "In the living room", mockVendor.Object,dateTime);
 
             //Assert
             using (new AssertionScope())
             {
-                item.Id.Should().Be(0);
                 item.Name.Should().Be("PC");
                 item.PurchaseDate.Should().Be(dateTime);
                 item.Cost.Should().Be(1.5m);
@@ -47,7 +46,7 @@ namespace ItemManager.Tests.Items
             List<IAccessory> accessories = new List<IAccessory>() { mockAccessory1.Object, mockAccessory2.Object };
 
             //Act
-            var item = new WarrantyItem(0, "PC", dateTime, 1.5m, "In the living room", mockVendor.Object, dateTime, accessories);
+            var item = new WarrantyItem("PC", dateTime, 1.5m, "In the living room", mockVendor.Object, dateTime, accessories);
 
             //Assert
             item.Accessories.Should().HaveCount(c => c == 2);
@@ -58,7 +57,7 @@ namespace ItemManager.Tests.Items
         {
             //Arrange
             DateTime dateTime = DateTime.Now;
-            Action constructor = () => new WarrantyItem(0, "PC", dateTime, 1.5m, "In the living room", null, dateTime);
+            Action constructor = () => new WarrantyItem("PC", dateTime, 1.5m, "In the living room", null, dateTime);
 
             //Act & Assert
             constructor.Should().Throw<ArgumentNullException>();

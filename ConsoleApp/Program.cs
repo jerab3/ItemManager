@@ -1,6 +1,11 @@
 ﻿using Autofac;
 using Newtonsoft.Json.Linq;
 using Interfaces.DataStorage;
+using Domains.Locations;
+using Interfaces.Location;
+using System.Security.Cryptography.X509Certificates;
+using Domains.Accessories;
+using System.Runtime.CompilerServices;
 
 namespace ConsoleApp
 {
@@ -16,7 +21,17 @@ namespace ConsoleApp
             {
                 var dataStorage = scope.Resolve<IDataStorage>();
 
+
                 dataStorage.LoadData();
+
+                var newStorage = new StorageLocation("Box");
+                dataStorage.AddData(newStorage);
+
+                foreach (StorageLocation storage in dataStorage.StorageLocations)
+                {
+                    Console.WriteLine(storage.Name);
+                }
+
                 Console.ReadLine();
             }
         }

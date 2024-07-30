@@ -20,12 +20,11 @@ namespace ItemManager.Tests.Locations
             List<IStorable> storedItemsList = new List<IStorable>() { mockStorableItem1.Object, mockStorableItem2.Object };
 
             //Act
-            var storageLocation = new StorageLocation(0, "Basement", storedItemsList);
+            var storageLocation = new StorageLocation("Basement", storedItemsList);
 
             //Assert
             using (new AssertionScope())
             {
-                storageLocation.Id.Should().Be(0);
                 storageLocation.Name.Should().Be("Basement");
                 storageLocation.StoredObjects.Should().HaveCount(c => c == 2);
             }
@@ -35,12 +34,11 @@ namespace ItemManager.Tests.Locations
         public void Constructor_ValidArgumentsWithoutStoredObjectsList_SetsValuesCorectly()
         {
             //Act
-            var storageLocation = new StorageLocation(0, "Basement");
+            var storageLocation = new StorageLocation("Basement");
 
             //Assert
             using (new AssertionScope())
             {
-                storageLocation.Id.Should().Be(0);
                 storageLocation.Name.Should().Be("Basement");
                 storageLocation.StoredObjects.Should().BeEmpty();
             }
@@ -50,9 +48,9 @@ namespace ItemManager.Tests.Locations
         public void Constructor_InvalidArguments_RaisesException()
         {
             //Arrange
-            Action constructor1 = () => new StorageLocation(0, null);
-            Action constructor2 = () => new StorageLocation(0, "");
-            Action constructor3 = () => new StorageLocation(0, "   ");
+            Action constructor1 = () => new StorageLocation(null);
+            Action constructor2 = () => new StorageLocation("");
+            Action constructor3 = () => new StorageLocation("   ");
 
             //Act & Assert
             using (new AssertionScope())
@@ -67,7 +65,7 @@ namespace ItemManager.Tests.Locations
         {
             //Arrange
             var mockItem = new Mock<IStorable>();
-            var storageLocation = new StorageLocation(0, "Basement");
+            var storageLocation = new StorageLocation("Basement");
 
             //Act
             storageLocation.AddStoredObject(mockItem.Object);
@@ -83,7 +81,7 @@ namespace ItemManager.Tests.Locations
             var mockItem1 = new Mock<IStorable>();
             var mockItem2 = new Mock<IStorable>();
             List<IStorable> items = new List<IStorable>() { mockItem1.Object, mockItem2.Object };
-            var storageLocation = new StorageLocation(0, "Basement", items);
+            var storageLocation = new StorageLocation("Basement", items);
 
             //Act
             storageLocation.RemoveStoredObject(mockItem1.Object);
@@ -96,7 +94,7 @@ namespace ItemManager.Tests.Locations
         public void AddStoredObject_InvalidArguments_RaisesException()
         {
             //Arrange
-            var storageLocation = new StorageLocation(0, "Basement");
+            var storageLocation = new StorageLocation("Basement");
             Action addStoredObject = () => storageLocation.AddStoredObject(null);
 
 
@@ -112,7 +110,7 @@ namespace ItemManager.Tests.Locations
             var mockItem2 = new Mock<IStorable>();
             List<IStorable> items = new List<IStorable>() { mockItem1.Object, mockItem2.Object };
 
-            var storageLocation = new StorageLocation(0, "Basement", items);
+            var storageLocation = new StorageLocation("Basement", items);
 
             Action removeStoredObject = () => storageLocation.RemoveStoredObject(null);
 

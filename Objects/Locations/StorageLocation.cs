@@ -1,4 +1,5 @@
 ﻿using Domains.AbstractDomains;
+using Interfaces.Accessories;
 using Interfaces.DomainProperties;
 using Interfaces.Location;
 
@@ -11,10 +12,10 @@ namespace Domains.Locations
     {
         public IEnumerable<IStorable> StoredObjects { get; private set; }
 
-        public StorageLocation(int id, string name, List<IStorable> storedObjects = null)
-            : base(id, name)
+        public StorageLocation(string name, List<IStorable> storedObjects = null)
+            : base(name)
         {
-            this.StoredObjects = storedObjects ?? new List<IStorable>();
+            this.StoredObjects = storedObjects ?? Enumerable.Empty<IStorable>();
         }
 
         public void AddStoredObject(IStorable storableObject)

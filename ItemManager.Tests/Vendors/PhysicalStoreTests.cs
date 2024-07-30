@@ -18,12 +18,11 @@ namespace ItemManager.Tests.Vendors
             List<IItem> purchasedItemsList = new List<IItem>() { mockPurchasedItem1.Object, mockPurchasedItem2.Object };
 
             //Act
-            var store = new PhysicalStore(0, "Alza", "Vodni 57", "Brno", purchasedItemsList);
+            var store = new PhysicalStore("Alza", "Vodni 57", "Brno", purchasedItemsList);
 
             //Assert
             using (new AssertionScope())
             {
-                store.Id.Should().Be(0);
                 store.Name.Should().Be("Alza");
                 store.Address.Should().Be("Vodni 57");
                 store.City.Should().Be("Brno");
@@ -35,12 +34,11 @@ namespace ItemManager.Tests.Vendors
         public void Constructor_ValidArgumentsWithoutItemList_SetsValuesCorectly()
         {
             //Act
-            var store = new PhysicalStore(0, "Alza", "Vodni 57", "Brno");
+            var store = new PhysicalStore("Alza", "Vodni 57", "Brno");
 
             //Assert
             using (new AssertionScope())
             {
-                store.Id.Should().Be(0);
                 store.Name.Should().Be("Alza");
                 store.Address.Should().Be("Vodni 57");
                 store.City.Should().Be("Brno");
@@ -52,15 +50,15 @@ namespace ItemManager.Tests.Vendors
         public void Constructor_InvalidArguments_RaisesException()
         {
             //Arrange
-            Action constructor1 = () => new PhysicalStore(0, "Alza", "Vodni 57", null);
-            Action constructor2 = () => new PhysicalStore(0, "Alza", "Vodni 57", "");
-            Action constructor3 = () => new PhysicalStore(0, "Alza", "Vodni 57", "   ");
-            Action constructor4 = () => new PhysicalStore(0, "Alza", null, "Brno");
-            Action constructor5 = () => new PhysicalStore(0, "Alza", "  ", "Brno");
-            Action constructor6 = () => new PhysicalStore(0, "Alza", "", "Brno");
-            Action constructor7 = () => new PhysicalStore(0, null, "Vodni 57", "Brno");
-            Action constructor8 = () => new PhysicalStore(0, "", "Vodni 57", "Brno");
-            Action constructor9 = () => new PhysicalStore(0, "  ", "Vodni 57", "Brno");
+            Action constructor1 = () => new PhysicalStore("Alza", "Vodni 57", null);
+            Action constructor2 = () => new PhysicalStore("Alza", "Vodni 57", "");
+            Action constructor3 = () => new PhysicalStore("Alza", "Vodni 57", "   ");
+            Action constructor4 = () => new PhysicalStore("Alza", null, "Brno");
+            Action constructor5 = () => new PhysicalStore("Alza", "  ", "Brno");
+            Action constructor6 = () => new PhysicalStore("Alza", "", "Brno");
+            Action constructor7 = () => new PhysicalStore(null, "Vodni 57", "Brno");
+            Action constructor8 = () => new PhysicalStore("", "Vodni 57", "Brno");
+            Action constructor9 = () => new PhysicalStore("  ", "Vodni 57", "Brno");
 
             //Act & Assert
             using (new AssertionScope())
@@ -82,7 +80,7 @@ namespace ItemManager.Tests.Vendors
         {
             //Arrange
             var mockItem = new Mock<IItem>();
-            var physicalStore = new PhysicalStore(0, "Alza", "Vodni 97", "Brno");
+            var physicalStore = new PhysicalStore("Alza", "Vodni 97", "Brno");
 
             //Act
             physicalStore.AddPurchasedItem(mockItem.Object);
@@ -98,7 +96,7 @@ namespace ItemManager.Tests.Vendors
             var mockItem1 = new Mock<IItem>();
             var mockItem2 = new Mock<IItem>();
             List<IItem> items = new List<IItem>() { mockItem1.Object, mockItem2.Object };
-            var physicalStore = new PhysicalStore(0, "Alza", "Vodni 97", "Brno", items);
+            var physicalStore = new PhysicalStore("Alza", "Vodni 97", "Brno", items);
 
             //Act
             physicalStore.RemovePurchasedItem(mockItem1.Object);
@@ -111,7 +109,7 @@ namespace ItemManager.Tests.Vendors
         public void AddPurchasedItem_InvalidArguments_RaisesException()
         {
             //Arrange
-            var physicalStore = new PhysicalStore(0, "Alza", "Vodni 97", "Brno");
+            var physicalStore = new PhysicalStore("Alza", "Vodni 97", "Brno");
             Action addPurchasedItem = () => physicalStore.AddPurchasedItem(null);
 
 
@@ -127,7 +125,7 @@ namespace ItemManager.Tests.Vendors
             var mockItem2 = new Mock<IItem>();
             List<IItem> items = new List<IItem>() { mockItem1.Object, mockItem2.Object };
 
-            var physicalStore = new PhysicalStore(0, "Alza", "Vodni 97", "Brno");
+            var physicalStore = new PhysicalStore("Alza", "Vodni 97", "Brno");
 
             Action removePurchasedItem = () => physicalStore.RemovePurchasedItem(null);
 
