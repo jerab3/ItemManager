@@ -18,12 +18,11 @@ namespace ItemManager.Tests.Items
             var mockVendor = new Mock<IVendor>();
 
             //Act
-            var item = new Item(0, "PC", dateTime, 1.5m, "In the living room", mockVendor.Object);
+            var item = new Item("PC", dateTime, 1.5m, "In the living room", mockVendor.Object);
 
             //Assert
             using (new AssertionScope())
             {
-                item.Id.Should().Be(0);
                 item.Name.Should().Be("PC");
                 item.PurchaseDate.Should().Be(dateTime);
                 item.Cost.Should().Be(1.5m);
@@ -40,7 +39,7 @@ namespace ItemManager.Tests.Items
             //Arrange
             DateTime dateTime = DateTime.Now;
             var mockVendor = new Mock<IVendor>();
-            var item = new Item(0, "PC", dateTime, 1.5m, "In the living room", mockVendor.Object);
+            var item = new Item("PC", dateTime, 1.5m, "In the living room", mockVendor.Object);
 
             //Act
             item.Name = "TV";
@@ -55,7 +54,7 @@ namespace ItemManager.Tests.Items
             //Arrange
             DateTime dateTime = DateTime.Now;
             var mockVendor = new Mock<IVendor>();
-            var item = new Item(0, "PC", dateTime, 1.5m, "In the living room", mockVendor.Object);
+            var item = new Item("PC", dateTime, 1.5m, "In the living room", mockVendor.Object);
 
             Action changingName1 = () => item.Name = "";
             Action changingName2 = () => item.Name = "   ";
@@ -82,7 +81,7 @@ namespace ItemManager.Tests.Items
             List<IAccessory> accessories = new List<IAccessory>() { mockAccessory1.Object, mockAccessory2.Object};
 
             //Act
-            var item = new Item(0, "PC", dateTime, 1.5m, "In the living room", mockVendor.Object, accessories);
+            var item = new Item("PC", dateTime, 1.5m, "In the living room", mockVendor.Object, accessories);
 
             //Assert
             item.Accessories.Should().HaveCount(c => c == 2);
@@ -93,7 +92,7 @@ namespace ItemManager.Tests.Items
         {
             //Arrange
             DateTime dateTime = DateTime.Now;
-            Action constructor = () => new Item(0, "PC", dateTime, 1.5m, "In the living room", null);
+            Action constructor = () => new Item("PC", dateTime, 1.5m, "In the living room", null);
 
             //Act & Assert
             constructor.Should().Throw<ArgumentNullException>();
@@ -106,7 +105,7 @@ namespace ItemManager.Tests.Items
             DateTime dateTime = DateTime.Now;
             var mockVendor1 = new Mock<IVendor>();
             var mockVendor2 = new Mock<IVendor>();
-            var item = new Item(0, "PC", dateTime, 1.5m, "In the living room", mockVendor1.Object);
+            var item = new Item("PC", dateTime, 1.5m, "In the living room", mockVendor1.Object);
 
             //Act
             item.Vendor = mockVendor2.Object;
@@ -121,7 +120,7 @@ namespace ItemManager.Tests.Items
             //Arrange
             DateTime dateTime = DateTime.Now;
             var mockVendor1 = new Mock<IVendor>();
-            var item = new Item(0, "PC", dateTime, 1.5m, "In the living room", mockVendor1.Object);
+            var item = new Item("PC", dateTime, 1.5m, "In the living room", mockVendor1.Object);
             
             Action setVendorToNull = () => item.Vendor = null;
 
@@ -139,7 +138,7 @@ namespace ItemManager.Tests.Items
 
             var mockAccessory = new Mock<IAccessory>();
 
-            var item = new Item(0, "PC", dateTime, 1.5m, "In the living room", mockVendor1.Object);
+            var item = new Item("PC", dateTime, 1.5m, "In the living room", mockVendor1.Object);
 
             //Act
             item.AddAccessory(mockAccessory.Object);
@@ -156,7 +155,7 @@ namespace ItemManager.Tests.Items
             var mockVendor1 = new Mock<IVendor>();
 
 
-            var item = new Item(0, "PC", dateTime, 1.5m, "In the living room", mockVendor1.Object);
+            var item = new Item("PC", dateTime, 1.5m, "In the living room", mockVendor1.Object);
             Action addNullAccessory = () => item.AddAccessory(null);
 
             //Act & Assert
@@ -174,7 +173,7 @@ namespace ItemManager.Tests.Items
             var mockAccessory2 = new Mock<IAccessory>();
             List<IAccessory> accessories = new List<IAccessory>() { mockAccessory1.Object, mockAccessory2.Object };
 
-            var item = new Item(0, "PC", dateTime, 1.5m, "In the living room", mockVendor1.Object, accessories);
+            var item = new Item("PC", dateTime, 1.5m, "In the living room", mockVendor1.Object, accessories);
 
             //Act
             item.RemoveAccessory(mockAccessory1.Object);
@@ -194,7 +193,7 @@ namespace ItemManager.Tests.Items
             var mockAccessory2 = new Mock<IAccessory>();
             List<IAccessory> accessories = new List<IAccessory>() { mockAccessory1.Object, mockAccessory2.Object};
 
-            var item = new Item(0, "PC", dateTime, 1.5m, "In the living room", mockVendor1.Object, accessories);
+            var item = new Item("PC", dateTime, 1.5m, "In the living room", mockVendor1.Object, accessories);
             Action addNullAccessory = () => item.RemoveAccessory(null);
 
             //Act & Assert

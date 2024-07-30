@@ -62,8 +62,8 @@ namespace Domains.ObjectProperties
         /// <summary>
         /// Creates an instance of <see cref="UsableStoreableObject"></see> that is currently stored"
         /// </summary>
-        protected UsableStoreableObject(int id, string name, IStorageLocation storageLocation)
-            :base(id,name)
+        protected UsableStoreableObject(string name, IStorageLocation storageLocation)
+            :base(name)
         {
             this.IsBeingUsed = false;
 
@@ -75,8 +75,8 @@ namespace Domains.ObjectProperties
         /// <summary>
         /// Creates an instance of <see cref="UsableStoreableObject"></see> that is currently being used"
         /// </summary>
-        protected UsableStoreableObject(int id, string name, string usageDescription)
-            :base(id,name)
+        protected UsableStoreableObject(string name, string usageDescription)
+            :base(name)
         {
             this.IsBeingUsed = true;
             

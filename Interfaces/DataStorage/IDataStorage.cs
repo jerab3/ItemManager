@@ -17,6 +17,7 @@ namespace Interfaces.DataStorage
         IEnumerable<IAccessory> Accessories { get; }
 
         void LoadData();
+        void SaveData();
         void AddData(IIdentifiable identifiableObject);
         void RemoveData(IIdentifiable identifiableObject);
         void EditItem(IIdentifiable identifiableObject);

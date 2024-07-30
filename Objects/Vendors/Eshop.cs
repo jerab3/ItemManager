@@ -32,11 +32,11 @@ namespace Domains.Vendors
             }
         }
 
-        public Eshop(int id, string name, string webAddress, List<IItem> purchasedItems = null)
-            :base(id, name)
+        public Eshop(string name, string webAddress, List<IItem> purchasedItems = null)
+            :base(name)
         {
             this.WebAddress = webAddress;
-            this.PurchasedItems = purchasedItems ?? new List<IItem>();
+            this.PurchasedItems = purchasedItems ?? Enumerable.Empty<IItem>();
         }
 
         public bool IsWebAddressValid()

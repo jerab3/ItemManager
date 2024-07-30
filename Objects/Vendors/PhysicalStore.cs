@@ -54,12 +54,12 @@ namespace Domains.Vendors
             }
         }
 
-        public PhysicalStore(int id, string name, string address, string city, List<IItem> purchasedItems = null)
-            : base(id, name)
+        public PhysicalStore(string name, string address, string city, List<IItem> purchasedItems = null)
+            : base(name)
         {
             this.Address = address;
             this.City = city;
-            this.PurchasedItems = purchasedItems ?? new List<IItem>();
+            this.PurchasedItems = purchasedItems ?? Enumerable.Empty<IItem>();
         }
 
         public void AddPurchasedItem(IItem item)

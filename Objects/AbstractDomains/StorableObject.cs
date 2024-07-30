@@ -26,8 +26,8 @@ namespace Domains.AbstractDomains
             }
         }
         
-        protected StorableObject(int id, string name, IStorageLocation storageLocation)
-            :base(id, name)
+        protected StorableObject(string name, IStorageLocation storageLocation)
+            :base(name)
         {
             this.StorageLocation = storageLocation;
             storageLocation.AddStoredObject(this);
@@ -35,8 +35,8 @@ namespace Domains.AbstractDomains
         /// <summary>
         /// Serves as constructor for classes that override StorageLocation setter
         /// </summary>
-        protected StorableObject(int id, string name)
-            : base(id, name) 
+        protected StorableObject(string name)
+            : base(name) 
         {
             this.storageLocation = null;
         }

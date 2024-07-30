@@ -20,12 +20,11 @@ namespace ItemManager.Tests.Vendors
             List<IItem> purchasedItemsList = new List<IItem>() { mockPurchasedItem1.Object, mockPurchasedItem2.Object };
 
             //Act
-            var eshop = new Eshop(0, "Alza", "https://www.alza.cz", purchasedItemsList);
+            var eshop = new Eshop("Alza", "https://www.alza.cz", purchasedItemsList);
 
             //Assert
             using (new AssertionScope())
             {
-                eshop.Id.Should().Be(0);
                 eshop.Name.Should().Be("Alza");
                 eshop.WebAddress.Should().Be("https://www.alza.cz");
                 eshop.PurchasedItems.Should().HaveCount(c => c == 2);
@@ -36,12 +35,11 @@ namespace ItemManager.Tests.Vendors
         public void Constructor_ValidArgumentsWithoutItemList_SetsValuesCorectly()
         {
             //Act
-            var eshop = new Eshop(0, "Alza", "https://www.alza.cz");
+            var eshop = new Eshop("Alza", "https://www.alza.cz");
 
             //Assert
             using (new AssertionScope())
             {
-                eshop.Id.Should().Be(0);
                 eshop.Name.Should().Be("Alza");
                 eshop.WebAddress.Should().Be("https://www.alza.cz");
                 eshop.PurchasedItems.Should().BeEmpty();
@@ -52,12 +50,12 @@ namespace ItemManager.Tests.Vendors
         public void Constructor_InvalidArguments_RaisesException()
         {
             //Arrange
-            Action constructor1 = () => new Eshop(0, "Alza", "");
-            Action constructor2 = () => new Eshop(0, "Alza", null);
-            Action constructor3 = () => new Eshop(0, "Alza", "  ");
-            Action constructor4 = () => new Eshop(0, "", "url");
-            Action constructor5 = () => new Eshop(0, null, "url");
-            Action constructor6 = () => new Eshop(0, "  ", "url");
+            Action constructor1 = () => new Eshop("Alza", "");
+            Action constructor2 = () => new Eshop("Alza", null);
+            Action constructor3 = () => new Eshop("Alza", "  ");
+            Action constructor4 = () => new Eshop("", "url");
+            Action constructor5 = () => new Eshop(null, "url");
+            Action constructor6 = () => new Eshop("  ", "url");
 
             //Act & Assert
             using (new AssertionScope())
@@ -74,7 +72,7 @@ namespace ItemManager.Tests.Vendors
         public void IsWebAddressValid_ValidArgumentWithUrl_ReturnsTrue()
         {
             //Arrange
-            var eshop = new Eshop(0, "Alza", "https://www.alza.cz");
+            var eshop = new Eshop("Alza", "https://www.alza.cz");
 
             //Act
             var result = eshop.IsWebAddressValid();
@@ -87,7 +85,7 @@ namespace ItemManager.Tests.Vendors
         public void IsWebAddressValid_ValidArgumentWithoutUrl_ReturnsFalse()
         {
             //Arrange
-            var eshop = new Eshop(0, "Alza", "www.alza.cz");
+            var eshop = new Eshop("Alza", "www.alza.cz");
 
             //Act
             var result = eshop.IsWebAddressValid();
@@ -101,7 +99,7 @@ namespace ItemManager.Tests.Vendors
         {
             //Arrange
             var mockItem = new Mock<IItem>();
-            var eshop = new Eshop(0, "Alza", "www.alza.cz");
+            var eshop = new Eshop("Alza", "www.alza.cz");
 
             //Act
             eshop.AddPurchasedItem(mockItem.Object);
@@ -117,7 +115,7 @@ namespace ItemManager.Tests.Vendors
             var mockItem1 = new Mock<IItem>();
             var mockItem2 = new Mock<IItem>();
             List<IItem> items = new List<IItem>() { mockItem1.Object, mockItem2.Object };
-            var eshop = new Eshop(0, "Alza", "www.alza.cz",items);
+            var eshop = new Eshop("Alza", "www.alza.cz",items);
 
             //Act
             eshop.RemovePurchasedItem(mockItem1.Object);
@@ -130,7 +128,7 @@ namespace ItemManager.Tests.Vendors
         public void AddPurchasedItem_InvalidArguments_RaisesException()
         {
             //Arrange
-            var eshop = new Eshop(0, "Alza", "www.alza.cz");
+            var eshop = new Eshop("Alza", "www.alza.cz");
             Action addPurchasedItem = () => eshop.AddPurchasedItem(null);
 
 
@@ -146,7 +144,7 @@ namespace ItemManager.Tests.Vendors
             var mockItem2 = new Mock<IItem>();
             List<IItem> items = new List<IItem>() { mockItem1.Object, mockItem2.Object };
             
-            var eshop = new Eshop(0, "Alza", "www.alza.cz", items);
+            var eshop = new Eshop("Alza", "www.alza.cz", items);
             
             Action removePurchasedItem = () => eshop.RemovePurchasedItem(null);
 

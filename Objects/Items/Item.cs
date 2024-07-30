@@ -35,26 +35,26 @@ namespace Objects.Items
         /// <summary>
         /// Initializes a new instance of <see cref="Item"/>  that is currently stored.
         /// </summary>
-        public Item(int id, string name, DateTime purchaseDate, decimal cost, IStorageLocation storageLocation, IVendor vendor, List<IAccessory> accessories = null)
-            :base(id, name, storageLocation)
+        public Item(string name, DateTime purchaseDate, decimal cost, IStorageLocation storageLocation, IVendor vendor, List<IAccessory> accessories = null)
+            :base(name, storageLocation)
         {
 
             this.PurchaseDate = purchaseDate;
             this.Cost = cost;
-            this.Accessories = accessories ?? new List<IAccessory>();
+            this.Accessories = accessories ?? Enumerable.Empty<IAccessory>();
             this.Vendor = vendor;
             vendor.AddPurchasedItem(this);
         }
         /// <summary>
         /// Initializes a new instance of <see cref="Item"/>  that we are currently using.
         /// </summary>
-        public Item(int id, string name, DateTime purchaseDate, decimal cost, string usageDescription, IVendor vendor, List<IAccessory> accessories = null)
-            : base (id, name, usageDescription)
+        public Item(string name, DateTime purchaseDate, decimal cost, string usageDescription, IVendor vendor, List<IAccessory> accessories = null)
+            : base (name, usageDescription)
         {
             
             this.PurchaseDate = purchaseDate;
             this.Cost = cost;
-            this.Accessories = accessories ?? new List<IAccessory>();
+            this.Accessories = accessories ?? Enumerable.Empty<IAccessory>();
             this.Vendor = vendor;
             vendor.AddPurchasedItem(this);
         }

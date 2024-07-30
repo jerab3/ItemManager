@@ -16,12 +16,11 @@ namespace ItemManager.Tests.Accessories
             var mockStorageLocation = new Mock<IStorageLocation>();
 
             //Act
-            var accessory = new StorableAccessory(0, "Test accessory", mockStorageLocation.Object);
+            var accessory = new StorableAccessory("Test accessory", mockStorageLocation.Object);
 
             //Assert
             using (new AssertionScope())
             {
-                accessory.Id.Should().Be(0);
                 accessory.Name.Should().Be("Test accessory");
                 accessory.StorageLocation.Should().Be(mockStorageLocation.Object);
             }
@@ -33,9 +32,9 @@ namespace ItemManager.Tests.Accessories
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
             
-            Action construct1 = () => new StorableAccessory(1, null, mockStorageLocation.Object);
-            Action construct2 = () => new StorableAccessory(1, "  ", mockStorageLocation.Object);
-            Action construct3 = () => new StorableAccessory(1, "", mockStorageLocation.Object);
+            Action construct1 = () => new StorableAccessory(null, mockStorageLocation.Object);
+            Action construct2 = () => new StorableAccessory("  ", mockStorageLocation.Object);
+            Action construct3 = () => new StorableAccessory("", mockStorageLocation.Object);
 
             //Act & Assert
             using (new AssertionScope()) 
@@ -50,7 +49,7 @@ namespace ItemManager.Tests.Accessories
         public void Constructor_NullLocationArgument_RaisesException()
         {
             //Arrange
-            Action construct1 = () => new StorableAccessory(1, "Test", null);
+            Action construct1 = () => new StorableAccessory("Test", null);
 
             //Act & Assert
             construct1.Should().Throw<ArgumentNullException>();
@@ -63,7 +62,7 @@ namespace ItemManager.Tests.Accessories
             var mockStorageLocation1 = new Mock<IStorageLocation>();
             var mockStorageLocation2 = new Mock<IStorageLocation>();
             
-            var accessory = new StorableAccessory(0, "Test accessory", mockStorageLocation1.Object);
+            var accessory = new StorableAccessory("Test accessory", mockStorageLocation1.Object);
 
             //Act
             accessory.StorageLocation = mockStorageLocation2.Object;
@@ -77,7 +76,7 @@ namespace ItemManager.Tests.Accessories
         {
             //Arrange
             var mockStorageLocation1 = new Mock<IStorageLocation>();
-            var accessory = new StorableAccessory(0, "Test accessory", mockStorageLocation1.Object);
+            var accessory = new StorableAccessory("Test accessory", mockStorageLocation1.Object);
 
             Action setStorageLocation = () => accessory.StorageLocation = null;
 

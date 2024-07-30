@@ -13,13 +13,13 @@ namespace Domains.Accessories
         /// <summary>
         /// Initializes a new instance of <see cref="UsableStoreableAccessory"/> as item, that we are currently using.
         /// </summary>
-        public UsableStoreableAccessory(int id, string name, string usageDescription)
-            : base(id, name, usageDescription) { }
+        public UsableStoreableAccessory(string name, string usageDescription)
+            : base(name, usageDescription) { }
 
         /// <summary>
         /// Initializes a new instance of <see cref="UsableStoreableAccessory"/> as item, that is currently stored.
         /// </summary>
-        public UsableStoreableAccessory(int id, string name, IStorageLocation storageLocation)
-            : base(id, name, storageLocation) { }
+        public UsableStoreableAccessory(string name, IStorageLocation storageLocation)
+            : base(name, storageLocation) { }
     }
 }

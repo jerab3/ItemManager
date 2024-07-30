@@ -13,12 +13,11 @@ namespace ItemManager.Tests.Accessories
         public void Constructor_ValidArgumentsUsedAccessory_SetsValuesCorectly()
         {
             //Act
-            var usableAccessory = new UsableStoreableAccessory(0, "Cable", "Plugged in PC");
+            var usableAccessory = new UsableStoreableAccessory("Cable", "Plugged in PC");
 
             //Assert
             using (new AssertionScope())
             {
-                usableAccessory.Id.Should().Be(0);
                 usableAccessory.Name.Should().Be("Cable");
                 usableAccessory.IsBeingUsed.Should().BeTrue();
                 usableAccessory.UsageDescription.Should().Be("Plugged in PC");
@@ -33,12 +32,11 @@ namespace ItemManager.Tests.Accessories
             var mockStorageLocation = new Mock<IStorageLocation>();
 
             //Act
-            var usableAccessory = new UsableStoreableAccessory(0, "Cable", mockStorageLocation.Object);
+            var usableAccessory = new UsableStoreableAccessory("Cable", mockStorageLocation.Object);
 
             //Assert
             using (new AssertionScope())
             {
-                usableAccessory.Id.Should().Be(0);
                 usableAccessory.Name.Should().Be("Cable");
                 usableAccessory.IsBeingUsed.Should().BeFalse();
                 usableAccessory.StorageLocation.Should().Be(mockStorageLocation.Object);
@@ -51,9 +49,9 @@ namespace ItemManager.Tests.Accessories
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
-            Action constructor1 = () => new UsableStoreableAccessory(0, null, mockStorageLocation.Object);
-            Action constructor2 = () => new UsableStoreableAccessory(0, "", mockStorageLocation.Object);
-            Action constructor3 = () => new UsableStoreableAccessory(0, "   ", mockStorageLocation.Object);
+            Action constructor1 = () => new UsableStoreableAccessory(null, mockStorageLocation.Object);
+            Action constructor2 = () => new UsableStoreableAccessory("", mockStorageLocation.Object);
+            Action constructor3 = () => new UsableStoreableAccessory("   ", mockStorageLocation.Object);
 
             //Act & Assert
             using (new AssertionScope())
@@ -69,9 +67,9 @@ namespace ItemManager.Tests.Accessories
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
-            Action constructor1 = () => new UsableStoreableAccessory(0, "Cable", usageDescription:null);
-            Action constructor2 = () => new UsableStoreableAccessory(0, "Cable", "");
-            Action constructor3 = () => new UsableStoreableAccessory(0, "Cable", "   ");
+            Action constructor1 = () => new UsableStoreableAccessory("Cable", usageDescription:null);
+            Action constructor2 = () => new UsableStoreableAccessory("Cable", "");
+            Action constructor3 = () => new UsableStoreableAccessory("Cable", "   ");
 
             //Act & Assert
             using (new AssertionScope())
@@ -87,7 +85,7 @@ namespace ItemManager.Tests.Accessories
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
-            Action constructor1 = () => new UsableStoreableAccessory(0, "Cable", storageLocation: null);
+            Action constructor1 = () => new UsableStoreableAccessory("Cable", storageLocation: null);
 
             //Act & Assert
             constructor1.Should().Throw<ArgumentNullException>();
@@ -98,7 +96,7 @@ namespace ItemManager.Tests.Accessories
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
-            var usableAccessory = new UsableStoreableAccessory(0, "Cable", mockStorageLocation.Object);
+            var usableAccessory = new UsableStoreableAccessory("Cable", mockStorageLocation.Object);
 
             //Act
             usableAccessory.StartUsing("Plugged to PC");
@@ -117,7 +115,7 @@ namespace ItemManager.Tests.Accessories
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
-            var usableAccessory = new UsableStoreableAccessory(0, "Cable", mockStorageLocation.Object);
+            var usableAccessory = new UsableStoreableAccessory("Cable", mockStorageLocation.Object);
 
             Action startUsingAccessory1 = () => usableAccessory.StartUsing(null);
             Action startUsingAccessory2 = () => usableAccessory.StartUsing("");
@@ -137,7 +135,7 @@ namespace ItemManager.Tests.Accessories
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
-            var usableAccessory = new UsableStoreableAccessory(0, "Cable", "Plugged into PC");
+            var usableAccessory = new UsableStoreableAccessory("Cable", "Plugged into PC");
 
             //Act
             usableAccessory.StopUsing(mockStorageLocation.Object);
@@ -156,7 +154,7 @@ namespace ItemManager.Tests.Accessories
         {
             //Arrange
             var mockStorageLocation = new Mock<IStorageLocation>();
-            var usableAccessory = new UsableStoreableAccessory(0, "Cable", "Plugged into PC");
+            var usableAccessory = new UsableStoreableAccessory("Cable", "Plugged into PC");
 
             Action stopUsingAccessory = () => usableAccessory.StopUsing(null);
 
@@ -171,7 +169,7 @@ namespace ItemManager.Tests.Accessories
             var mockStorageLocation1 = new Mock<IStorageLocation>();
             var mockStorageLocation2 = new Mock<IStorageLocation>();
 
-            var accessory = new UsableStoreableAccessory(0, "Test accessory", mockStorageLocation1.Object);
+            var accessory = new UsableStoreableAccessory("Test accessory", mockStorageLocation1.Object);
 
             //Act
             accessory.StorageLocation = mockStorageLocation2.Object;
@@ -185,7 +183,7 @@ namespace ItemManager.Tests.Accessories
         {
             //Arrange
             var mockStorageLocation1 = new Mock<IStorageLocation>();
-            var accessory = new UsableStoreableAccessory(0, "Test accessory", mockStorageLocation1.Object);
+            var accessory = new UsableStoreableAccessory("Test accessory", mockStorageLocation1.Object);
 
             Action setStorageLocation = () => accessory.StorageLocation = null;
 
@@ -197,7 +195,7 @@ namespace ItemManager.Tests.Accessories
         public void ChangeUsageDescription_ValidArguments_ChangesLocation()
         {
             //Arrange
-            var accessory = new UsableStoreableAccessory(0, "Test accessory", "Plugged in PC");
+            var accessory = new UsableStoreableAccessory("Test accessory", "Plugged in PC");
 
             //Act
             accessory.UsageDescription = "Plugged in TV";
@@ -210,7 +208,7 @@ namespace ItemManager.Tests.Accessories
         public void ChangeUsageDescription_InvalidArguments_RaisesException()
         {
             //Arrange
-            var accessory = new UsableStoreableAccessory(0, "Test accessory", "Plugged in PC");
+            var accessory = new UsableStoreableAccessory("Test accessory", "Plugged in PC");
 
             Action setUsageDescription1 = () => accessory.StorageLocation = null;
             Action setUsageDescription2 = () => accessory.UsageDescription = "";

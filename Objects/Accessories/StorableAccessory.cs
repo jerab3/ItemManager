@@ -9,8 +9,8 @@ namespace Domains.Accessories
     /// </summary>
     public class StorableAccessory : StorableObject, IAccessory
     {
-        public StorableAccessory(int id, string name, IStorageLocation storageLocation)
-            : base(id, name, storageLocation) { }
+        public StorableAccessory(string name, IStorageLocation storageLocation)
+            : base(name, storageLocation) { }
     }
 
 }

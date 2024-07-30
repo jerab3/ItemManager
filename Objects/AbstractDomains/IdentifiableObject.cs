@@ -31,9 +31,8 @@ namespace Domains.AbstractDomains
             }
         }
 
-        protected IdentifiableObject(int id, string name) 
+        protected IdentifiableObject(string name) 
         {
-            this.Id = id;
             this.Name = name;
         }
 
