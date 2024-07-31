@@ -46,7 +46,7 @@ namespace FileDataHanding
                 InicializeCollections();
                 File.Create(filePath);
             }
-
+            Console.WriteLine("Data loaded from file storage");
         }
         private void InicializeCollections()
         {
