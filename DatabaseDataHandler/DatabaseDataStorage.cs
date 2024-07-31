@@ -4,57 +4,48 @@ using Interfaces.DomainProperties;
 using Interfaces.Items;
 using Interfaces.Location;
 using Interfaces.Vendor;
+using Microsoft.Data.SqlClient;
 using System.Security.Cryptography;
 
 namespace DatabaseDataHanding
 {
     public class DatabaseDataStorage : IDataStorage
     {
+        private readonly ApplicationDatabaseContext _context;
+
         public IEnumerable<IVendor> Vendors { get; private set; }
         public IEnumerable<IStorageLocation> StorageLocations { get; private set; }
         public IEnumerable<IItem> Items { get; private set; }
         public IEnumerable<IAccessory> Accessories { get; private set; }
 
+        public DatabaseDataStorage()
+        {
+            _context = new ApplicationDatabaseContext();
+        }
         public void LoadData()
         {
+            try
+            {
+            this.Vendors = _context.Eshops.Cast<IVendor>().ToList()
+                .Concat(_context.PhysicalStores.Cast<IVendor>().ToList());
+
+            this.StorageLocations = _context.StorageLocations.ToList();
+            this.Accessories = _context.StorableAccessories.Cast<IAccessory>().ToList()
+                .Concat(_context.UsableStoreableAccessories.Cast<IAccessory>().ToList());
+
+            this.Items = _context.Items.Cast<IItem>().ToList()
+                .Concat(_context.WarrantyItems.Cast<IItem>().ToList());
+            }
+            catch (InvalidOperationException e)
+            {
+                throw new InvalidOperationException("One or more tables do not exist in the database.", e);
+            }
+
             Console.WriteLine("Data loaded from database");
 
         }
         public void AddData(IIdentifiable identifiableObject)
         {
-            if (identifiableObject == null)
-            {
-                throw new ArgumentNullException(nameof(identifiableObject), "Cannot be null.");
-            }
-
-            switch (identifiableObject)
-            {
-                case IVendor:
-                    var vendors = this.Vendors.ToList();
-                    vendors.Add(identifiableObject as IVendor);
-                    this.Vendors = vendors;
-                    break;
-
-                case IStorageLocation:
-                    var storageLocations = this.StorageLocations.ToList();
-                    storageLocations.Add(identifiableObject as IStorageLocation);
-                    this.StorageLocations = storageLocations;
-                    break;
-
-                case IItem:
-                    var items = this.Items.ToList();
-                    items.Add(identifiableObject as IItem);
-                    this.Items = items;
-                    break;
-
-                case IAccessory:
-                    var accessories = this.Accessories.ToList();
-                    accessories.Add(identifiableObject as IAccessory);
-                    this.Accessories = accessories;
-                    break;
-                default:
-                    throw new ArgumentException(nameof(identifiableObject), "Is invalid.");
-            }
             Console.WriteLine("Added data to database");
         }
         public void RemoveData(IIdentifiable identifiableObject)
