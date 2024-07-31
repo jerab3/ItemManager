@@ -24,12 +24,10 @@ namespace ConsoleApp
 
                 dataStorage.LoadData();
 
-                var newStorage = new StorageLocation("Box");
-                dataStorage.AddData(newStorage);
-
-                foreach (StorageLocation storage in dataStorage.StorageLocations)
+                dataStorage.AddData(new StorageLocation("Basement"));
+                foreach (StorageLocation storageLocation in dataStorage.StorageLocations) 
                 {
-                    Console.WriteLine(storage.Name);
+                    Console.WriteLine(storageLocation.Name);
                 }
 
                 Console.ReadLine();

@@ -9,7 +9,6 @@ using Domains.Vendors;
 using Domains.Locations;
 using Objects.Items;
 using Domains.Accessories;
-using Newtonsoft.Json.Serialization;
 
 namespace FileDataHanding
 {
@@ -47,7 +46,7 @@ namespace FileDataHanding
                 InicializeCollections();
                 File.Create(filePath);
             }
-
+            Console.WriteLine("Data loaded from file storage");
         }
         private void InicializeCollections()
         {

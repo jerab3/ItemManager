@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItemManager.Tests", "ItemMa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{3C9BF17F-2E0B-47A3-A6B4-9FDD54F73956}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseDataHanding", "DatabaseDataHandler\DatabaseDataHanding.csproj", "{E1D6D807-00B4-4D54-B37C-80DC54082104}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseDataHanding", "DatabaseDataHandler\DatabaseDataHanding.csproj", "{E1D6D807-00B4-4D54-B37C-80DC54082104}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDataHanding", "FileDataStorage\FileDataHanding.csproj", "{808B8AD3-F78C-4E2B-ACCA-164E448F36A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileDataHanding", "FileDataStorage\FileDataHanding.csproj", "{808B8AD3-F78C-4E2B-ACCA-164E448F36A6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
